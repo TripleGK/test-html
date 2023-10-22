@@ -1,70 +1,15 @@
-<html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+    <script type="module" crossorigin src="/assets/index-24bfbbe2.js"></script>
+    <link rel="stylesheet" href="/assets/index-d526a0c5.css">
+  </head>
   <body>
-    <button onclick="generateLotto()">로또 번호 생성</button>
-    <button onclick="generatePension()">연금 복권 번호 생성</button>
-    <br />
-    <p id="lotto"></p>
-    <p id="pension"></p>
-
-    <script>
-      function randrange(min, max) {
-        var range = max - min;
-        if (range <= 0) {
-          throw new Exception("max must be larger than min");
-        }
-        var requestBytes = Math.ceil(Math.log2(range) / 8);
-        if (!requestBytes) {
-          // No randomness required
-          return min;
-        }
-        var maxNum = Math.pow(256, requestBytes);
-        var ar = new Uint8Array(requestBytes);
-
-        while (true) {
-          window.crypto.getRandomValues(ar);
-
-          var val = 0;
-          for (var i = 0; i < requestBytes; i++) {
-            val = (val << 8) + ar[i];
-          }
-
-          if (val < maxNum - (maxNum % range)) {
-            return min + (val % range);
-          }
-        }
-      }
-
-      function generateLottoNumbrs() {
-        let lottoArr = [];
-        while (lottoArr.length < 6) {
-          const randomInt = randrange(1, 46);
-          if (!lottoArr.includes(randomInt)) {
-            lottoArr.push(randomInt);
-          }
-        }
-        return lottoArr;
-      }
-
-      function generateLotto() {
-        const lottoTag = document.getElementById("lotto");
-        lottoTag.innerHTML = "";
-        for (let i = 0; i < 5; i++) {
-          const lottoNumbers = generateLottoNumbrs();
-          lottoTag.innerHTML += "[" + lottoNumbers.join(", ") + "]<br>";
-        }
-      }
-
-      function generatePension() {
-        const pensionTag = document.getElementById("pension");
-        pensionTag.innerHTML = "";
-
-        let pensionNumbers = [];
-        for (let i = 0; i < 6; i++) {
-          pensionNumbers.push(randrange(0, 10));
-        }
-
-        pensionTag.innerHTML = pensionNumbers.join(", ");
-      }
-    </script>
+    <div id="root"></div>
+    
   </body>
 </html>
